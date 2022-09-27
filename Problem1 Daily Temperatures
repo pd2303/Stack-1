@@ -1,0 +1,23 @@
+//Time complexity: O(N)
+//each element can only be added to the stack once, which means the stack is limited to O(N) pops in total. 
+//Space complexity: O(N)
+//if the input is in non-increasing order, then stack would grow to a size of N elements at the end.
+
+//Runs sucessfully on leetcode
+
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int n = temperatures.length;
+        int[] result = new int[n];
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && temperatures[i] > temperatures[st.peek()]){
+                //resolve the stack
+                int popped = st.pop();
+                result[popped] = i-popped;
+                }
+               st.push(i);
+           }
+        return result;
+    }
+}
